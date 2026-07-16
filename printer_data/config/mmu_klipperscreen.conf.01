@@ -71,30 +71,6 @@ params: { "script":"MMU_CHANGE_TOOL TOOL=1 QUIET=1" }
 enable: {{ (printer.mmu.tool != 1 or (printer.mmu.tool == 1 and printer.mmu.filament != "Loaded")) and printer.mmu.gate_status[1] != 0 and printer.mmu.action == "Idle" and printer.mmu.num_gates > 1 }}
 show_disabled: True
 refresh_on: printer.mmu.tool, printer.mmu.gate_status, printer.mmu.filament, printer.mmu.action
-[menu __main,__print mmu tools T2]
-name: {{ gettext('T2') }}
-icon: mmu_t2
-method: printer.gcode.script
-params: { "script":"MMU_CHANGE_TOOL TOOL=2 QUIET=1" }
-enable: {{ (printer.mmu.tool != 2 or (printer.mmu.tool == 2 and printer.mmu.filament != "Loaded")) and printer.mmu.gate_status[2] != 0 and printer.mmu.action == "Idle" and printer.mmu.num_gates > 2 }}
-show_disabled: True
-refresh_on: printer.mmu.tool, printer.mmu.gate_status, printer.mmu.filament, printer.mmu.action
-[menu __main,__print mmu tools T3]
-name: {{ gettext('T3') }}
-icon: mmu_t3
-method: printer.gcode.script
-params: { "script":"MMU_CHANGE_TOOL TOOL=3 QUIET=1" }
-enable: {{ (printer.mmu.tool != 3 or (printer.mmu.tool == 3 and printer.mmu.filament != "Loaded")) and printer.mmu.gate_status[3] != 0 and printer.mmu.action == "Idle" and printer.mmu.num_gates > 3 }}
-show_disabled: True
-refresh_on: printer.mmu.tool, printer.mmu.gate_status, printer.mmu.filament, printer.mmu.action
-[menu __main,__print mmu tools T4]
-name: {{ gettext('T4') }}
-icon: mmu_t4
-method: printer.gcode.script
-params: { "script":"MMU_CHANGE_TOOL TOOL=4 QUIET=1" }
-enable: {{ (printer.mmu.tool != 4 or (printer.mmu.tool == 4 and printer.mmu.filament != "Loaded")) and printer.mmu.gate_status[4] != 0 and printer.mmu.action == "Idle" and printer.mmu.num_gates > 4 }}
-show_disabled: True
-refresh_on: printer.mmu.tool, printer.mmu.gate_status, printer.mmu.filament, printer.mmu.action
 
 [menu __main,__print mmu preload_gates]
 name: {{ gettext('Preload Gate...') }}
@@ -118,30 +94,6 @@ icon: mmu_reset
 method: printer.gcode.script
 params: { "script":"MMU_PRELOAD GATE=1" }
 enable: {{ printer.mmu.action == "Idle" and printer.mmu.num_gates > 1 }}
-show_disabled: True
-refresh_on: printer.mmu.action
-[menu __main,__print mmu preload_gates PG2]
-name: {{ gettext('Preload Gate #2') }}
-icon: mmu_reset
-method: printer.gcode.script
-params: { "script":"MMU_PRELOAD GATE=2" }
-enable: {{ printer.mmu.action == "Idle" and printer.mmu.num_gates > 2 }}
-show_disabled: True
-refresh_on: printer.mmu.action
-[menu __main,__print mmu preload_gates PG3]
-name: {{ gettext('Preload Gate #3') }}
-icon: mmu_reset
-method: printer.gcode.script
-params: { "script":"MMU_PRELOAD GATE=3" }
-enable: {{ printer.mmu.action == "Idle" and printer.mmu.num_gates > 3 }}
-show_disabled: True
-refresh_on: printer.mmu.action
-[menu __main,__print mmu preload_gates PG4]
-name: {{ gettext('Preload Gate #4') }}
-icon: mmu_reset
-method: printer.gcode.script
-params: { "script":"MMU_PRELOAD GATE=4" }
-enable: {{ printer.mmu.action == "Idle" and printer.mmu.num_gates > 4 }}
 show_disabled: True
 refresh_on: printer.mmu.action
 
@@ -169,40 +121,6 @@ params: { "script":"MMU_EJECT FORCE=1 GATE=1" }
 enable: {{ printer.mmu.action == "Idle" and printer.mmu.gate_status[1] != 0 and printer.mmu.num_gates > 1 }}
 show_disabled: True
 refresh_on: printer.mmu.gate, printer.mmu.action
-[menu __main,__print mmu eject_gates G2]
-name: {{ gettext('Eject Gate #2') }}
-icon: mmu_eject
-method: printer.gcode.script
-params: { "script":"MMU_EJECT FORCE=1 GATE=2" }
-enable: {{ printer.mmu.action == "Idle" and printer.mmu.gate_status[2] != 0 and printer.mmu.num_gates > 2 }}
-show_disabled: True
-refresh_on: printer.mmu.gate, printer.mmu.action
-[menu __main,__print mmu eject_gates G3]
-name: {{ gettext('Eject Gate #3') }}
-icon: mmu_eject
-method: printer.gcode.script
-params: { "script":"MMU_EJECT FORCE=1 GATE=3" }
-enable: {{ printer.mmu.action == "Idle" and printer.mmu.gate_status[3] != 0 and printer.mmu.num_gates > 3 }}
-show_disabled: True
-refresh_on: printer.mmu.gate, printer.mmu.action
-[menu __main,__print mmu eject_gates G4]
-name: {{ gettext('Eject Gate #4') }}
-icon: mmu_eject
-method: printer.gcode.script
-params: { "script":"MMU_EJECT FORCE=1 GATE=4" }
-enable: {{ printer.mmu.action == "Idle" and printer.mmu.gate_status[4] != 0 and printer.mmu.num_gates > 4 }}
-show_disabled: True
-refresh_on: printer.mmu.gate, printer.mmu.action
-
-[menu __main,__print mmu check_all]
-name: {{ gettext('Check All...') }}
-icon: mmu_checkgates
-method: printer.gcode.script
-confirm: Check filament availability in all MMU gates?
-params: {"script":"MMU_CHECK_GATE ALL=1 QUIET=1"}
-enable: {{ printer.mmu.action == "Idle" }}
-show_disabled: True
-refresh_on: printer.mmu.action, printer.mmu.filament
 
 [menu __main,__print mmu check_gates]
 name: {{ gettext('Check Gate...') }}
@@ -228,30 +146,6 @@ params: { "script":"MMU_CHECK_GATE GATE=1 QUIET=1" }
 enable: {{ printer.mmu.action == "Idle" and printer.mmu.num_gates > 1 }}
 show_disabled: True
 refresh_on: printer.mmu.action
-[menu __main,__print mmu check_gates CG2]
-name: {{ gettext('Check Gate #2') }}
-icon: mmu_checkgate2
-method: printer.gcode.script
-params: { "script":"MMU_CHECK_GATE GATE=2 QUIET=1" }
-enable: {{ printer.mmu.action == "Idle" and printer.mmu.num_gates > 2 }}
-show_disabled: True
-refresh_on: printer.mmu.action
-[menu __main,__print mmu check_gates CG3]
-name: {{ gettext('Check Gate #3') }}
-icon: mmu_checkgate3
-method: printer.gcode.script
-params: { "script":"MMU_CHECK_GATE GATE=3 QUIET=1" }
-enable: {{ printer.mmu.action == "Idle" and printer.mmu.num_gates > 3 }}
-show_disabled: True
-refresh_on: printer.mmu.action
-[menu __main,__print mmu check_gates CG4]
-name: {{ gettext('Check Gate #4') }}
-icon: mmu_checkgate4
-method: printer.gcode.script
-params: { "script":"MMU_CHECK_GATE GATE=4 QUIET=1" }
-enable: {{ printer.mmu.action == "Idle" and printer.mmu.num_gates > 4 }}
-show_disabled: True
-refresh_on: printer.mmu.action
 
 [menu __main,__print mmu select_gates]
 name: {{ gettext('Select Gate...') }}
@@ -275,9 +169,9 @@ name: {{ gettext('Select Bypass') }}
 icon: mmu_select_bypass
 method: printer.gcode.script
 params: {"script":"MMU_SELECT_BYPASS"}
-enable: {{ printer.mmu.gate != -2 }}
+enable: {{ printer.mmu.gate != -2 and printer.mmu.has_bypass }}
 show_disabled: True
-refresh_on: printer.mmu.gate
+refresh_on: printer.mmu.gate, printer.mmu.has_bypass
 
 # Generated menus for each tool/gate...
 [menu __main,__print mmu select_gates G0]
@@ -294,30 +188,6 @@ icon: mmu_select_gate
 method: printer.gcode.script
 params: { "script":"MMU_SELECT GATE=1" }
 enable: {{ printer.mmu.gate != 1 and printer.mmu.num_gates > 1 }}
-show_disabled: True
-refresh_on: printer.mmu.gate
-[menu __main,__print mmu select_gates G2]
-name: {{ gettext('Select Gate #2') }}
-icon: mmu_select_gate
-method: printer.gcode.script
-params: { "script":"MMU_SELECT GATE=2" }
-enable: {{ printer.mmu.gate != 2 and printer.mmu.num_gates > 2 }}
-show_disabled: True
-refresh_on: printer.mmu.gate
-[menu __main,__print mmu select_gates G3]
-name: {{ gettext('Select Gate #3') }}
-icon: mmu_select_gate
-method: printer.gcode.script
-params: { "script":"MMU_SELECT GATE=3" }
-enable: {{ printer.mmu.gate != 3 and printer.mmu.num_gates > 3 }}
-show_disabled: True
-refresh_on: printer.mmu.gate
-[menu __main,__print mmu select_gates G4]
-name: {{ gettext('Select Gate #4') }}
-icon: mmu_select_gate
-method: printer.gcode.script
-params: { "script":"MMU_SELECT GATE=4" }
-enable: {{ printer.mmu.gate != 4 and printer.mmu.num_gates > 4 }}
 show_disabled: True
 refresh_on: printer.mmu.gate
 
@@ -393,15 +263,6 @@ params: {"script":"MMU_LED ENABLE=1 EXIT_EFFECT=filament_color QUIET=1"}
 enable: {{ printer.mmu.enabled and not printer.mmu.print_state == "standby" }}
 show_disabled: True
 refresh_on: printer.mmu.enabled, printer.mmu.print_state
-
-[menu __main,__print mmu tool_picker]
-name: {{ gettext('Tools...') }}
-icon: mmu_tool_picker
-panel: mmu_picker
-enable: {{ printer.mmu.print_state != "printing" }}
-show_disabled: True
-refresh_on: printer.mmu.print_state
-
 
 # Example: User added ...
 [menu __main,__print mmu spare1]
@@ -481,30 +342,6 @@ params: { "script":"MMU_SELECT GATE=1" }
 enable: {{ printer.mmu.gate != 1 and printer.mmu.action == "Idle" and printer.mmu.num_gates > 1 }}
 show_disabled: True
 refresh_on: printer.mmu.gate, printer.mmu.action
-[menu __main more mmu_calib select_gates G2]
-name: {{ gettext('Select Gate #2') }}
-icon: mmu_select_gate
-method: printer.gcode.script
-params: { "script":"MMU_SELECT GATE=2" }
-enable: {{ printer.mmu.gate != 2 and printer.mmu.action == "Idle" and printer.mmu.num_gates > 2 }}
-show_disabled: True
-refresh_on: printer.mmu.gate, printer.mmu.action
-[menu __main more mmu_calib select_gates G3]
-name: {{ gettext('Select Gate #3') }}
-icon: mmu_select_gate
-method: printer.gcode.script
-params: { "script":"MMU_SELECT GATE=3" }
-enable: {{ printer.mmu.gate != 3 and printer.mmu.action == "Idle" and printer.mmu.num_gates > 3 }}
-show_disabled: True
-refresh_on: printer.mmu.gate, printer.mmu.action
-[menu __main more mmu_calib select_gates G4]
-name: {{ gettext('Select Gate #4') }}
-icon: mmu_select_gate
-method: printer.gcode.script
-params: { "script":"MMU_SELECT GATE=4" }
-enable: {{ printer.mmu.gate != 4 and printer.mmu.action == "Idle" and printer.mmu.num_gates > 4 }}
-show_disabled: True
-refresh_on: printer.mmu.gate, printer.mmu.action
 
 [menu __main more mmu_calib grip]
 name: {{ gettext('Test Grip') }}
@@ -577,30 +414,6 @@ icon: mmu_calibrate
 method: printer.gcode.script
 params: { "script":"MMU_CALIBRATE_GATES GATE=1" }
 enable: {{ printer.mmu.action == "Idle" and printer.mmu.num_gates > 1 }}
-show_disabled: True
-refresh_on: printer.mmu.action
-[menu __main more mmu_calib gate CG2]
-name: {{ gettext('Calibrate #2') }}
-icon: mmu_calibrate
-method: printer.gcode.script
-params: { "script":"MMU_CALIBRATE_GATES GATE=2" }
-enable: {{ printer.mmu.action == "Idle" and printer.mmu.num_gates > 2 }}
-show_disabled: True
-refresh_on: printer.mmu.action
-[menu __main more mmu_calib gate CG3]
-name: {{ gettext('Calibrate #3') }}
-icon: mmu_calibrate
-method: printer.gcode.script
-params: { "script":"MMU_CALIBRATE_GATES GATE=3" }
-enable: {{ printer.mmu.action == "Idle" and printer.mmu.num_gates > 3 }}
-show_disabled: True
-refresh_on: printer.mmu.action
-[menu __main more mmu_calib gate CG4]
-name: {{ gettext('Calibrate #4') }}
-icon: mmu_calibrate
-method: printer.gcode.script
-params: { "script":"MMU_CALIBRATE_GATES GATE=4" }
-enable: {{ printer.mmu.action == "Idle" and printer.mmu.num_gates > 4 }}
 show_disabled: True
 refresh_on: printer.mmu.action
 #
